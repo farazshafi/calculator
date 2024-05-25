@@ -1,4 +1,3 @@
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -11,41 +10,24 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import java.util.Stack;
 
 public class Calculator implements ActionListener {
 
-    boolean isOperatorClicked = false;
-    String oldValues;
-    String operator;
-
     JLabel displayLabel;
-    RoundedButton btnSeven;
-    RoundedButton btnEight;
-    RoundedButton btnNine;
-    RoundedButton btnFour;
-    RoundedButton btnFive;
-    RoundedButton btnSix;
-    RoundedButton btnOne;
-    RoundedButton btnTwo;
-    RoundedButton btnThree;
-    RoundedButton btnClear;
-    RoundedButton btnDot;
-    RoundedButton btnZero;
-    RoundedButton btnEqual;
-    RoundedButton btnDivision;
-    RoundedButton btnAdd;
-    RoundedButton btnSubstraction;
-    RoundedButton btnMultiplication;
+    RoundedButton btnSeven, btnEight, btnNine, btnFour, btnFive, btnSix;
+    RoundedButton btnOne, btnTwo, btnThree, btnClear, btnDot, btnZero;
+    RoundedButton btnEqual, btnDivision, btnAdd, btnSubtraction, btnMultiplication;
 
     Calculator() {
-        lableFunction();
+        labelFunction();
         buttonsFunction();
         frameFunction();
     }
 
     // Frame Function
     void frameFunction() {
-        // set Frame
+        // Set Frame
         JFrame jf = new JFrame("Calculator");
         jf.setLayout(null);
         jf.setSize(520, 500);
@@ -65,7 +47,7 @@ public class Calculator implements ActionListener {
         jf.add(btnOne);
         jf.add(btnTwo);
         jf.add(btnThree);
-        jf.add(btnSubstraction);
+        jf.add(btnSubtraction);
         jf.add(btnDot);
         jf.add(btnZero);
         jf.add(btnEqual);
@@ -73,171 +55,65 @@ public class Calculator implements ActionListener {
         jf.add(btnClear);
     }
 
-    // Lable function
-    void lableFunction() {
-        // set Label
+    // Label function
+    void labelFunction() {
+        // Set Label
         displayLabel = new JLabel();
         displayLabel.setBounds(30, 50, 460, 40);
         displayLabel.setBackground(Color.gray);
         displayLabel.setForeground(Color.white);
-        displayLabel.setHorizontalAlignment(SwingConstants.RIGHT);  
+        displayLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         displayLabel.setFont(new Font("Serif", Font.BOLD, 20));
         displayLabel.setOpaque(true);
     }
 
     void buttonsFunction() {
-        // Set 7 Button
+        // Initialize buttons
         btnSeven = new RoundedButton("7");
-        btnSeven.addActionListener(this);
-        btnSeven.setBounds(30, 110, 100, 50);
-        btnSeven.setBorderPainted(false);
-        btnSeven.setOpaque(false);
-        btnSeven.setBackground(Color.white);
-        btnSeven.setFont(new Font("Arial", Font.PLAIN, 20));
-
-        // Set 8 Button
         btnEight = new RoundedButton("8");
-        btnEight.addActionListener(this);
-        btnEight.setBounds(150, 110, 100, 50);
-        btnEight.setBorderPainted(false);
-        btnEight.setOpaque(false);
-        btnEight.setBackground(Color.white);
-        btnEight.setFont(new Font("Arial", Font.PLAIN, 20));
-
-        // Set 9 Button
         btnNine = new RoundedButton("9");
-        btnNine.addActionListener(this);
-        btnNine.setBounds(270, 110, 100, 50);
-        btnNine.setBorderPainted(false);
-        btnNine.setOpaque(false);
-        btnNine.setBackground(Color.white);
-        btnNine.setFont(new Font("Arial", Font.PLAIN, 20));
-
-        // Set division Button
         btnDivision = new RoundedButton("/");
-        btnDivision.addActionListener(this);
-        btnDivision.setBounds(390, 110, 100, 50);
-        btnDivision.setBorderPainted(false);
-        btnDivision.setOpaque(false);
-        btnDivision.setBackground(Color.lightGray);
-        btnDivision.setFont(new Font("Arial", Font.PLAIN, 20));
-
-        // Set 4 Button
         btnFour = new RoundedButton("4");
-        btnFour.addActionListener(this);
-        btnFour.setBounds(30, 170, 100, 50);
-        btnFour.setBorderPainted(false);
-        btnFour.setOpaque(false);
-        btnFour.setBackground(Color.white);
-        btnFour.setFont(new Font("Arial", Font.PLAIN, 20));
-
-        // Set 5 Button
         btnFive = new RoundedButton("5");
-        btnFive.addActionListener(this);
-        btnFive.setBounds(150, 170, 100, 50);
-        btnFive.setBorderPainted(false);
-        btnFive.setOpaque(false);
-        btnFive.setBackground(Color.white);
-        btnFive.setFont(new Font("Arial", Font.PLAIN, 20));
-
-        // Set 6 Button
         btnSix = new RoundedButton("6");
-        btnSix.addActionListener(this);
-        btnSix.setBounds(270, 170, 100, 50);
-        btnSix.setBorderPainted(false);
-        btnSix.setOpaque(false);
-        btnSix.setBackground(Color.white);
-        btnSix.setFont(new Font("Arial", Font.PLAIN, 20));
-
-        // Set Multiplication Button
         btnMultiplication = new RoundedButton("x");
-        btnMultiplication.addActionListener(this);
-        btnMultiplication.setBounds(390, 170, 100, 50);
-        btnMultiplication.setBorderPainted(false);
-        btnMultiplication.setOpaque(false);
-        btnMultiplication.setBackground(Color.lightGray);
-        btnMultiplication.setFont(new Font("Arial", Font.PLAIN, 20));
-
-        // Set 1 Button
         btnOne = new RoundedButton("1");
-        btnOne.addActionListener(this);
-        btnOne.setBounds(30, 230, 100, 50);
-        btnOne.setBorderPainted(false);
-        btnOne.setOpaque(false);
-        btnOne.setBackground(Color.white);
-        btnOne.setFont(new Font("Arial", Font.PLAIN, 20));
-
-        // Set 2 Button
         btnTwo = new RoundedButton("2");
-        btnTwo.addActionListener(this);
-        btnTwo.setBounds(150, 230, 100, 50);
-        btnTwo.setBorderPainted(false);
-        btnTwo.setOpaque(false);
-        btnTwo.setBackground(Color.white);
-        btnTwo.setFont(new Font("Arial", Font.PLAIN, 20));
-
-        // Set 3 Button
         btnThree = new RoundedButton("3");
-        btnThree.addActionListener(this);
-        btnThree.setBounds(270, 230, 100, 50);
-        btnThree.setBorderPainted(false);
-        btnThree.setOpaque(false);
-        btnThree.setBackground(Color.white);
-        btnThree.setFont(new Font("Arial", Font.PLAIN, 20));
-
-        // Set Substraction Button
-        btnSubstraction = new RoundedButton("-");
-        btnSubstraction.addActionListener(this);
-        btnSubstraction.setBounds(390, 230, 100, 50);
-        btnSubstraction.setBorderPainted(false);
-        btnSubstraction.setOpaque(false);
-        btnSubstraction.setBackground(Color.lightGray);
-        btnSubstraction.setFont(new Font("Arial", Font.PLAIN, 20));
-
-        // Set dot Button
+        btnSubtraction = new RoundedButton("-");
         btnDot = new RoundedButton(".");
-        btnDot.addActionListener(this);
-        btnDot.setBounds(30, 290, 100, 50);
-        btnDot.setBorderPainted(false);
-        btnDot.setOpaque(false);
-        btnDot.setBackground(Color.white);
-        btnDot.setFont(new Font("Arial", Font.PLAIN, 20));
-
-        // Set zero Button
         btnZero = new RoundedButton("0");
-        btnZero.addActionListener(this);
-        btnZero.setBounds(150, 290, 100, 50);
-        btnZero.setBorderPainted(false);
-        btnZero.setOpaque(false);
-        btnZero.setBackground(Color.white);
-        btnZero.setFont(new Font("Arial", Font.PLAIN, 20));
-
-        // Set Equal Button
         btnEqual = new RoundedButton("=");
-        btnEqual.addActionListener(this);
-        btnEqual.setBounds(270, 290, 100, 50);
-        btnEqual.setBorderPainted(false);
-        btnEqual.setOpaque(false);
-        btnEqual.setBackground(Color.lightGray);
-        btnEqual.setFont(new Font("Arial", Font.PLAIN, 20));
-
-        // Set Addition Button
         btnAdd = new RoundedButton("+");
-        btnAdd.addActionListener(this);
-        btnAdd.setBounds(390, 290, 100, 50);
-        btnAdd.setBorderPainted(false);
-        btnAdd.setOpaque(false);
-        btnAdd.setBackground(Color.lightGray);
-        btnAdd.setFont(new Font("Arial", Font.PLAIN, 20));
-
-        // Set clear Button
         btnClear = new RoundedButton("CLEAR");
-        btnClear.addActionListener(this);
-        btnClear.setBounds(30, 350, 100, 50);
-        btnClear.setBorderPainted(false);
-        btnClear.setOpaque(false);
-        btnClear.setBackground(Color.white);
-        btnClear.setFont(new Font("Arial", Font.PLAIN, 20));
+
+        // Set button properties and add action listeners
+        setButtonProperties(btnSeven, 30, 110);
+        setButtonProperties(btnEight, 150, 110);
+        setButtonProperties(btnNine, 270, 110);
+        setButtonProperties(btnDivision, 390, 110);
+        setButtonProperties(btnFour, 30, 170);
+        setButtonProperties(btnFive, 150, 170);
+        setButtonProperties(btnSix, 270, 170);
+        setButtonProperties(btnMultiplication, 390, 170);
+        setButtonProperties(btnOne, 30, 230);
+        setButtonProperties(btnTwo, 150, 230);
+        setButtonProperties(btnThree, 270, 230);
+        setButtonProperties(btnSubtraction, 390, 230);
+        setButtonProperties(btnDot, 30, 290);
+        setButtonProperties(btnZero, 150, 290);
+        setButtonProperties(btnEqual, 270, 290);
+        setButtonProperties(btnAdd, 390, 290);
+        setButtonProperties(btnClear, 30, 350);
+    }
+
+    void setButtonProperties(RoundedButton button, int x, int y) {
+        button.addActionListener(this);
+        button.setBounds(x, y, 100, 50);
+        button.setBorderPainted(false);
+        button.setOpaque(false);
+        button.setBackground(Color.white);
+        button.setFont(new Font("Arial", Font.PLAIN, 20));
     }
 
     // main function
@@ -279,135 +155,82 @@ public class Calculator implements ActionListener {
         }
     }
 
-    // action to be perfomed when btn press
+    // action to be performed when button pressed
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == btnSeven) {
-            if (isOperatorClicked) {
-                displayLabel.setText("7");
-                isOperatorClicked = false;
-            } else {
-                displayLabel.setText(displayLabel.getText() + "7");
-            }
-        } else if (e.getSource() == btnEight) {
-            if (isOperatorClicked) {
-                displayLabel.setText("8");
-                isOperatorClicked = false;
-            } else {
-                displayLabel.setText(displayLabel.getText() + "8");
-            }
-        } else if (e.getSource() == btnNine) {
-            if (isOperatorClicked) {
-                displayLabel.setText("9");
-                isOperatorClicked = false;
-            } else {
-                displayLabel.setText(displayLabel.getText() + "9");
-            }
-        } else if (e.getSource() == btnFour) {
-            if (isOperatorClicked) {
-                displayLabel.setText("4");
-                isOperatorClicked = false;
-            } else {
-                displayLabel.setText(displayLabel.getText() + "4");
-            }
-        } else if (e.getSource() == btnFive) {
-            if (isOperatorClicked) {
-                displayLabel.setText("5");
-                isOperatorClicked = false;
-            } else {
-                displayLabel.setText(displayLabel.getText() + "5");
-            }
-        } else if (e.getSource() == btnSix) {
-            if (isOperatorClicked) {
-                displayLabel.setText("6");
-                isOperatorClicked = false;
-            } else {
-                displayLabel.setText(displayLabel.getText() + "6");
-            }
-        } else if (e.getSource() == btnOne) {
-            if (isOperatorClicked) {
-                displayLabel.setText("1");
-                isOperatorClicked = false;
-            } else {
-                displayLabel.setText(displayLabel.getText() + "1");
-            }
-        } else if (e.getSource() == btnTwo) {
-            if (isOperatorClicked) {
-                displayLabel.setText("2");
-                isOperatorClicked = false;
-            } else {
-                displayLabel.setText(displayLabel.getText() + "2");
-            }
-        } else if (e.getSource() == btnThree) {
-            if (isOperatorClicked) {
-                displayLabel.setText("3");
-                isOperatorClicked = false;
-            } else {
-                displayLabel.setText(displayLabel.getText() + "3");
-            }
-        } else if (e.getSource() == btnClear) {
+        String command = ((JButton) e.getSource()).getText();
+        if (command.equals("CLEAR")) {
             displayLabel.setText("");
-        } else if (e.getSource() == btnDot) {
-            if (isOperatorClicked) {
-                displayLabel.setText(".");
-                isOperatorClicked = false;
-            } else {
-                displayLabel.setText(displayLabel.getText() + ".");
+        } else if (command.equals("=")) {
+            try {
+                String result = evaluate(displayLabel.getText());
+                displayLabel.setText(result);
+            } catch (Exception ex) {
+                displayLabel.setText("Error");
             }
-        } else if (e.getSource() == btnZero) {
-            if (isOperatorClicked) {
-                displayLabel.setText("0");
-                isOperatorClicked = false;
-            } else {
-                displayLabel.setText(displayLabel.getText() + "0");
-            }
-        } else if (e.getSource() == btnDivision) {
-            operator = "div";
-            isOperatorClicked = true;
-            oldValues = displayLabel.getText();
-            displayLabel.setText(displayLabel.getText() + "/");
-
-        } else if (e.getSource() == btnSubstraction) {
-            operator = "sub";
-            isOperatorClicked = true;
-            oldValues = displayLabel.getText();
-            displayLabel.setText(displayLabel.getText() + "-");
-
-        } else if (e.getSource() == btnAdd) {
-            operator = "add";
-            isOperatorClicked = true;
-            oldValues = displayLabel.getText();
-            displayLabel.setText(displayLabel.getText() + "+");
-        } else if (e.getSource() == btnMultiplication) {
-            operator = "mul";
-            isOperatorClicked = true;
-            oldValues = displayLabel.getText();
-            displayLabel.setText(displayLabel.getText() + "x");
-        } else if (e.getSource() == btnEqual) {
-            String newValue = displayLabel.getText();
-            float oldValuesF = Float.parseFloat(oldValues);
-            float newValueF = Float.parseFloat(newValue);
-            float result = 0;
-            switch (operator) {
-                case "div":
-                    result = oldValuesF / newValueF;
-                    break;
-                case "add":
-                    result = oldValuesF + newValueF;
-                    break;
-                case "mul":
-                    result = oldValuesF * newValueF;
-                    break;
-                case "sub":
-                    result = oldValuesF - newValueF;
-                    break;
-                default:
-                    System.out.println("Invalid operator");
-                    break;
-            }
-            displayLabel.setText(result + "");
+        } else {
+            displayLabel.setText(displayLabel.getText() + command);
         }
-
     }
 
+    // Method to evaluate the expression
+    private String evaluate(String expression) {
+        char[] tokens = expression.toCharArray();
+        Stack<Float> values = new Stack<>();
+        Stack<Character> ops = new Stack<>();
+
+        for (int i = 0; i < tokens.length; i++) {
+            if (tokens[i] >= '0' && tokens[i] <= '9' || tokens[i] == '.') {
+                StringBuilder sbuf = new StringBuilder();
+                while (i < tokens.length && (tokens[i] >= '0' && tokens[i] <= '9' || tokens[i] == '.')) {
+                    sbuf.append(tokens[i++]);
+                }
+                values.push(Float.parseFloat(sbuf.toString()));
+                i--;
+            } else if (tokens[i] == '(') {
+                ops.push(tokens[i]);
+            } else if (tokens[i] == ')') {
+                while (ops.peek() != '(') {
+                    values.push(applyOp(ops.pop(), values.pop(), values.pop()));
+                }
+                ops.pop();
+            } else if (tokens[i] == '+' || tokens[i] == '-' || tokens[i] == 'x' || tokens[i] == '/') {
+                while (!ops.empty() && hasPrecedence(tokens[i], ops.peek())) {
+                    values.push(applyOp(ops.pop(), values.pop(), values.pop()));
+                }
+                ops.push(tokens[i]);
+            }
+        }
+        while (!ops.empty()) {
+            values.push(applyOp(ops.pop(), values.pop(), values.pop()));
+        }
+        return String.valueOf(values.pop());
+    }
+
+    private boolean hasPrecedence(char op1, char op2) {
+        if (op2 == '(' || op2 == ')') {
+            return false;
+        }
+        if ((op1 == 'x' || op1 == '/') && (op2 == '+' || op2 == '-')) {
+            return false;
+        }
+        return true;
+    }
+
+    private float applyOp(char op, float b, float a) {
+        switch (op) {
+            case '+':
+                return a + b;
+            case '-':
+                return a - b;
+            case 'x':
+                return a * b;
+            case '/':
+                if (b == 0) {
+                    throw new UnsupportedOperationException("Cannot divide by zero");
+                }
+                return a / b;
+        }
+        return 0;
+    }
 }
